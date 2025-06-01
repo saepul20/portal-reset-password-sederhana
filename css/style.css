@@ -1,0 +1,200 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f0f2f5;
+    color: #1c1e21;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #fff; /* Mengubah warna navbar agar lebih modern */
+    border-bottom: 1px solid #dddfe2; /* Garis bawah tipis */
+    overflow: hidden;
+    padding: 0 20px; /* Mengurangi padding vertikal */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    height: 56px; /* Tinggi navbar standar */
+    display: flex;
+    align-items: center;
+}
+
+.navbar a {
+    display: block;
+    color: #1877f2; /* Warna link utama Facebook */
+    text-align: center;
+    padding: 16px 16px; /* Padding konsisten */
+    text-decoration: none;
+    font-size: 16px; /* Ukuran font standar */
+    font-weight: 600; /* Sedikit lebih tebal */
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.navbar a:hover {
+    background-color: #f0f2f5; /* Warna hover lembut */
+    color: #1877f2;
+    border-radius: 6px; /* Rounded corner saat hover */
+}
+
+.navbar a.brand { /* Untuk logo atau nama situs */
+    font-size: 24px;
+    font-weight: bold;
+    color: #1877f2;
+}
+
+
+.navbar .nav-right {
+    margin-left: auto; /* Mendorong item ke kanan */
+    display: flex;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px 30px 30px 30px; /* Padding disesuaikan */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px; /* Lebar maksimal form */
+    text-align: center;
+    border: 1px solid #dddfe2;
+}
+
+.container h2 {
+    color: #1c1e21;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.container p.subtitle {
+    font-size: 0.95em;
+    color: #606770;
+    margin-bottom: 20px;
+}
+
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    color: #606770; /* Warna label lebih lembut */
+    font-weight: 600;
+    font-size: 14px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 24px); /* Kalkulasi width agar padding tidak overflow */
+    padding: 12px; /* Padding lebih nyaman */
+    margin-bottom: 16px; /* Jarak antar input */
+    border: 1px solid #dddfe2; /* Border lebih lembut */
+    border-radius: 6px; /* Rounded corner */
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #1877f2; /* Warna border saat focus */
+    box-shadow: 0 0 0 2px #e7f3ff; /* Efek shadow saat focus */
+    outline: none;
+}
+
+
+button {
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 600;
+    width: 100%;
+    transition: background-color 0.2s;
+    margin-top: 10px; /* Jarak dari input terakhir */
+}
+
+button.primary { /* Tombol utama seperti Login, Register */
+    background-color: #1877f2; /* Warna biru Facebook */
+}
+button.primary:hover {
+    background-color: #166fe5; /* Warna biru lebih gelap saat hover */
+}
+
+button.secondary { /* Tombol seperti Kirim Link Reset */
+    background-color: #42b72a; /* Warna hijau Facebook */
+}
+button.secondary:hover {
+    background-color: #36a420; /* Warna hijau lebih gelap */
+}
+
+button.warning { /* Tombol untuk reset password */
+     background-color: #f0ad4e;
+}
+button.warning:hover {
+    background-color: #ec971f;
+}
+
+
+.message {
+    margin-top: 18px;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: left;
+}
+
+.message.success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.form-links { /* Menggantikan .extra-links dan .login-link */
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.form-links a {
+    color: #1877f2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-links a:hover {
+    text-decoration: underline;
+}
+
+.form-links span { /* Untuk pemisah seperti "atau" */
+    margin: 0 8px;
+    color: #606770;
+}
+
+/* Untuk index.html content */
+.main-content {
+    padding: 30px;
+    text-align: center;
+}
+.main-content h1 {
+    color: #1c1e21;
+    font-size: 28px;
+}
+.main-content p {
+    font-size: 17px;
+    color: #606770;
+    margin-bottom: 25px;
+}
+.action-buttons button {
+    margin: 5px 10px;
+}

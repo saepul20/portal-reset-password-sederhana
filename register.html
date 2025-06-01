@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Akun</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="brand">PortalKu</a>
+        <div class="nav-right">
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Buat Akun Baru</h2>
+        <form id="registerForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirmPassword">Konfirmasi Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+            <button type="submit" class="primary">Register</button>
+        </form>
+        <div id="responseMessage" class="message" style="display:none;"></div>
+        <div class="form-links">
+            Sudah punya akun? <a href="login.html">Login di sini</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const responseMessageDiv = document.getElementById('responseMessage');
+            responseMessageDiv.style.display = 'none';
+            responseMessageDiv.className = 'message';
+
+            if (!username || !email || !password || !confirmPassword) {
+                responseMessageDiv.textContent = 'Semua field wajib diisi.';
+                responseMessageDiv.classList.add('error');
+                responseMessageDiv.style.display = 'block';
+                return;
+            }
+            if (password !== confirmPassword) {
+                responseMessageDiv.textContent = 'Password dan konfirmasi password tidak cocok.';
+                responseMessageDiv.classList.add('error');
+                responseMessageDiv.style.display = 'block';
+                return;
+            }
+            if (password.length < 8) {
+                responseMessageDiv.textContent = 'Password minimal harus 8 karakter.';
+                responseMessageDiv.classList.add('error');
+                responseMessageDiv.style.display = 'block';
+                return;
+            }
+
+            responseMessageDiv.textContent = 'Memproses registrasi...';
+            responseMessageDiv.style.display = 'block'; // Tampilkan pesan loading
+            responseMessageDiv.classList.remove('error', 'success');
+
+
+            try {
+                const response = await fetch('api/register_handler.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    responseMessageDiv.textContent = result.message;
+                    responseMessageDiv.classList.add('success');
+                    document.getElementById('registerForm').reset();
+                    // setTimeout(() => { window.location.href = 'login.html'; }, 2000); // Opsional redirect
+                } else {
+                    responseMessageDiv.textContent = result.message || 'Registrasi gagal.';
+                    responseMessageDiv.classList.add('error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                responseMessageDiv.textContent = 'Terjadi kesalahan saat menghubungkan ke server.';
+                responseMessageDiv.classList.add('error');
+            }
+            responseMessageDiv.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

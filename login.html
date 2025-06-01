@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Akun</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="brand">PortalKu</a>
+        <div class="nav-right">
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Login ke Akun Anda</h2>
+        <form id="loginForm">
+            <label for="identifier">Username atau Email:</label>
+            <input type="text" id="identifier" name="identifier" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="primary">Login</button>
+        </form>
+        <div id="responseMessage" class="message" style="display:none;"></div>
+        <div class="form-links">
+            <a href="reset_password.html">Lupa Password?</a>
+            <span>atau</span>
+            <a href="register.html">Buat Akun Baru</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const identifier = document.getElementById('identifier').value.trim();
+            const password = document.getElementById('password').value;
+            const responseMessageDiv = document.getElementById('responseMessage');
+            responseMessageDiv.style.display = 'none';
+            responseMessageDiv.className = 'message';
+
+            if (!identifier || !password) {
+                responseMessageDiv.textContent = 'Username/Email dan password wajib diisi.';
+                responseMessageDiv.classList.add('error');
+                responseMessageDiv.style.display = 'block';
+                return;
+            }
+            
+            responseMessageDiv.textContent = 'Memproses login...';
+            responseMessageDiv.style.display = 'block';
+            responseMessageDiv.classList.remove('error', 'success');
+
+            try {
+                const response = await fetch('api/login_handler.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ identifier, password })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    // Tidak perlu menampilkan pesan sukses di sini jika langsung redirect
+                    // responseMessageDiv.textContent = result.message;
+                    // responseMessageDiv.classList.add('success');
+                    // responseMessageDiv.style.display = 'block';
+                    
+                    // Langsung arahkan ke dashboard
+                    window.location.href = 'dashboard.php'; 
+                } else {
+                    responseMessageDiv.textContent = result.message || 'Login gagal.';
+                    responseMessageDiv.classList.add('error');
+                    responseMessageDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                responseMessageDiv.textContent = 'Terjadi kesalahan saat menghubungkan ke server.';
+                responseMessageDiv.classList.add('error');
+                responseMessageDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
